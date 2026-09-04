@@ -1,0 +1,38 @@
+baseURL = 'https://0xlhu.github.io/'
+languageCode = 'fr-fr'
+title = '0xLhu'
+theme = 'PaperMod'
+enableRobotsTXT = true
+
+[params]
+  defaultTheme = 'dark'
+  ShowReadingTime = true
+  ShowCodeCopyButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowToc = true
+  TocOpen = false
+
+[params.homeInfoParams]
+  Title = "hunting threats so you don't have to"
+  Content = "SOC | CTI | Blue Team | OSINT"
+
+[[params.socialIcons]]
+  name = "github"
+  url = "https://github.com/0xLhu"
+
+[[params.socialIcons]]
+  name = "linkedin"
+  url = "https://www.linkedin.com/in/nourdine-bena/"
+
+[[params.socialIcons]]
+  name = "rss"
+  url = "index.xml"
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+[markup.highlight]
+  style = 'dracula'
+  noClasses = false
+  lineNos = true
