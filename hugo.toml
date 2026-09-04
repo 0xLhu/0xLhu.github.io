@@ -1,8 +1,10 @@
 baseURL = 'https://0xlhu.github.io/'
-locale = 'fr-fr'
 title = '0xLhu'
 theme = 'PaperMod'
 enableRobotsTXT = true
+
+defaultContentLanguage = 'fr'
+defaultContentLanguageInSubdir = true
 
 [params]
   defaultTheme = 'dark'
@@ -12,10 +14,6 @@ enableRobotsTXT = true
   ShowBreadCrumbs = true
   ShowToc = true
   TocOpen = false
-
-[params.homeInfoParams]
-  Title = "hunting threats so you don't have to"
-  Content = "SOC | CTI | Blue Team | OSINT"
 
 [[params.socialIcons]]
   name = "github"
@@ -37,20 +35,55 @@ enableRobotsTXT = true
   noClasses = false
   lineNos = true
 
-[[menu.main]]
-  identifier = "posts"
-  name = "Posts"
-  url = "/posts/"
-  weight = 10
+[languages]
+  [languages.fr]
+    locale = 'fr-fr'
+    languageName = 'Français'
+    languageCode = 'fr'
+    contentDir = 'content/fr'
+    weight = 1
+    title = '0xLhu'
+    [languages.fr.params.homeInfoParams]
+      Title = "hunting threats so you don't have to"
+      Content = "SOC | CTI | Blue Team | OSINT"
+    [[languages.fr.menu.main]]
+      identifier = "posts"
+      name = "Articles"
+      url = "/posts/"
+      weight = 10
+    [[languages.fr.menu.main]]
+      identifier = "tags"
+      name = "Tags"
+      url = "/tags/"
+      weight = 20
+    [[languages.fr.menu.main]]
+      identifier = "about"
+      name = "À propos"
+      url = "/about/"
+      weight = 30
 
-[[menu.main]]
-  identifier = "tags"
-  name = "Tags"
-  url = "/tags/"
-  weight = 20
-
-[[menu.main]]
-  identifier = "about"
-  name = "About"
-  url = "/about/"
-  weight = 30
+  [languages.en]
+    locale = 'en-us'
+    languageName = 'English'
+    languageCode = 'en'
+    contentDir = 'content/en'
+    weight = 2
+    title = '0xLhu'
+    [languages.en.params.homeInfoParams]
+      Title = "hunting threats so you don't have to"
+      Content = "SOC | CTI | Blue Team | OSINT"
+    [[languages.en.menu.main]]
+      identifier = "posts"
+      name = "Posts"
+      url = "/posts/"
+      weight = 10
+    [[languages.en.menu.main]]
+      identifier = "tags"
+      name = "Tags"
+      url = "/tags/"
+      weight = 20
+    [[languages.en.menu.main]]
+      identifier = "about"
+      name = "About"
+      url = "/about/"
+      weight = 30
