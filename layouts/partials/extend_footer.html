@@ -1,0 +1,142 @@
+{{ if .IsHome }}
+<canvas id="pixelfield" aria-hidden="true"></canvas>
+<script>
+(function () {
+  var canvas = document.getElementById('pixelfield');
+  if (!canvas) return;
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  var ctx = canvas.getContext('2d', { alpha: true });
+
+  var CELL = 7;
+  var cols = 0, rows = 0, dpr = 1;
+  var drops = [];
+  var sparks = [];
+  var running = true;
+  var last = 0;
+
+  function accent() {
+    var v = getComputedStyle(document.documentElement)
+      .getPropertyValue('--accent').trim();
+    return v || '#00ff41';
+  }
+
+  function rgb(hex) {
+    var h = hex.replace('#', '');
+    if (h.length === 3) h = h[0] + h[0] + h[1] + h[1] + h[2] + h[2];
+    var n = parseInt(h, 16);
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+
+  var COLOR = rgb(accent());
+
+  function resize() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.floor(window.innerWidth * dpr);
+    canvas.height = Math.floor(window.innerHeight * dpr);
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    cols = Math.ceil(window.innerWidth / CELL);
+    rows = Math.ceil(window.innerHeight / CELL);
+    drops = [];
+    var density = window.innerWidth < 700 ? 22 : 14;
+    for (var i = 0; i < cols; i++) {
+      if (Math.random() * density < 1) {
+        drops.push({
+          x: i,
+          y: Math.random() * rows,
+          speed: 0.05 + Math.random() * 0.14,
+          len: 5 + Math.floor(Math.random() * 12)
+        });
+      }
+    }
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    if (reduce.matches) staticGrid();
+  }
+
+  function staticGrid() {
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    for (var i = 0; i < 220; i++) {
+      var x = Math.floor(Math.random() * cols) * CELL;
+      var y = Math.floor(Math.random() * rows) * CELL;
+      ctx.fillStyle = 'rgba(' + COLOR + ',' + (0.05 + Math.random() * 0.1) + ')';
+      ctx.fillRect(x, y, CELL - 1, CELL - 1);
+    }
+  }
+
+  function frame(now) {
+    if (!running) return;
+    requestAnimationFrame(frame);
+    if (now - last < 33) return;
+    last = now;
+
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.fillStyle = 'rgba(0,0,0,0.055)';
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    ctx.globalCompositeOperation = 'source-over';
+
+    for (var d = 0; d < drops.length; d++) {
+      var drop = drops[d];
+      drop.y += drop.speed;
+      if (drop.y - drop.len > rows) {
+        drop.y = -drop.len;
+        drop.x = Math.floor(Math.random() * cols);
+        drop.speed = 0.05 + Math.random() * 0.14;
+      }
+      for (var k = 0; k < drop.len; k++) {
+        var cy = Math.floor(drop.y) - k;
+        if (cy < 0 || cy > rows) continue;
+        var a = (1 - k / drop.len) * 0.22;
+        ctx.fillStyle = 'rgba(' + COLOR + ',' + a.toFixed(3) + ')';
+        ctx.fillRect(drop.x * CELL, cy * CELL, CELL - 1, CELL - 1);
+      }
+    }
+
+    if (Math.random() < 0.35) {
+      sparks.push({
+        x: Math.floor(Math.random() * cols),
+        y: Math.floor(Math.random() * rows),
+        life: 1
+      });
+    }
+    for (var s = sparks.length - 1; s >= 0; s--) {
+      var sp = sparks[s];
+      sp.life -= 0.02;
+      if (sp.life <= 0) { sparks.splice(s, 1); continue; }
+      ctx.fillStyle = 'rgba(' + COLOR + ',' + (sp.life * 0.3).toFixed(3) + ')';
+      ctx.fillRect(sp.x * CELL, sp.y * CELL, CELL - 1, CELL - 1);
+    }
+  }
+
+  function start() {
+    if (reduce.matches) { staticGrid(); return; }
+    running = true;
+    requestAnimationFrame(frame);
+  }
+
+  window.addEventListener('resize', function () {
+    clearTimeout(window.__pfTimer);
+    window.__pfTimer = setTimeout(resize, 180);
+  });
+
+  document.addEventListener('visibilitychange', function () {
+    if (document.hidden) { running = false; }
+    else { start(); }
+  });
+
+  reduce.addEventListener('change', function () {
+    resize();
+    start();
+  });
+
+  new MutationObserver(function () {
+    COLOR = rgb(accent());
+  }).observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+  COLOR = rgb(accent()).join(',');
+  resize();
+  start();
+})();
+</script>
+{{ end }}
