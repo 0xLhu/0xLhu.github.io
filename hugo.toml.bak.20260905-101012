@@ -2,39 +2,18 @@ baseURL = 'https://0xlhu.github.io/'
 title = '0xLhu'
 theme = 'PaperMod'
 enableRobotsTXT = true
-enableEmoji = false
-summaryLength = 40
 
 defaultContentLanguage = 'fr'
 defaultContentLanguageInSubdir = true
 
-[pagination]
-  pagerSize = 10
-
 [params]
   defaultTheme = 'dark'
   ShowReadingTime = true
-  ShowWordCount = true
   ShowCodeCopyButtons = true
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
-  ShowShareButtons = false
-  ShowRssButtonInSectionTermList = true
   ShowToc = true
   TocOpen = false
-  hideMeta = false
-  disableScrollToTop = false
-  keywords = ["CTI", "threat intelligence", "detection engineering", "malware", "SOC"]
-
-  [params.profileMode]
-    enabled = false
-
-  [params.assets]
-    disableHLJS = true
-
-  [params.cover]
-    linkFullImages = true
-    responsiveImages = true
 
 [[params.socialIcons]]
   name = "github"
@@ -55,60 +34,56 @@ defaultContentLanguageInSubdir = true
   style = 'dracula'
   noClasses = false
   lineNos = true
-  tabWidth = 4
-
-[markup.goldmark.renderer]
-  unsafe = true
-
-[markup.tableOfContents]
-  startLevel = 2
-  endLevel = 3
 
 [languages]
   [languages.fr]
+    locale = 'fr-fr'
+    languageName = 'Français'
+    languageCode = 'fr'
     contentDir = 'content/fr'
-    locale = 'fr-FR'
-    label = 'Français'
     weight = 1
     title = '0xLhu'
-    [languages.fr.params]
-      description = "Renseignement sur la menace, ingénierie de détection et recherche appliquée aux malwares."
     [languages.fr.params.homeInfoParams]
       Title = "hunting threats so you don't have to"
-      Content = "CTI, ingénierie de détection et recherche appliquée. J'écris ce que j'apprends, y compris quand ça rate."
+      Content = "SOC | CTI | Blue Team | OSINT"
     [[languages.fr.menu.main]]
+      identifier = "posts"
       name = "Articles"
-      url = "/fr/posts/"
+      url = "/posts/"
       weight = 10
     [[languages.fr.menu.main]]
+      identifier = "tags"
       name = "Tags"
-      url = "/fr/tags/"
+      url = "/tags/"
       weight = 20
     [[languages.fr.menu.main]]
+      identifier = "about"
       name = "À propos"
-      url = "/fr/about/"
+      url = "/about/"
       weight = 30
 
   [languages.en]
+    locale = 'en-us'
+    languageName = 'English'
+    languageCode = 'en'
     contentDir = 'content/en'
-    locale = 'en-US'
-    label = 'English'
     weight = 2
     title = '0xLhu'
-    [languages.en.params]
-      description = "Threat intelligence, detection engineering and applied malware research."
     [languages.en.params.homeInfoParams]
       Title = "hunting threats so you don't have to"
-      Content = "CTI, detection engineering and applied research. I write what I learn, including when it fails."
+      Content = "SOC | CTI | Blue Team | OSINT"
     [[languages.en.menu.main]]
+      identifier = "posts"
       name = "Posts"
-      url = "/en/posts/"
+      url = "/posts/"
       weight = 10
     [[languages.en.menu.main]]
+      identifier = "tags"
       name = "Tags"
-      url = "/en/tags/"
+      url = "/tags/"
       weight = 20
     [[languages.en.menu.main]]
+      identifier = "about"
       name = "About"
-      url = "/en/about/"
+      url = "/about/"
       weight = 30
