@@ -74,7 +74,7 @@ defaultContentLanguageInSubdir = true
     [languages.fr.params]
       description = "Renseignement sur la menace, ingénierie de détection et recherche appliquée aux malwares."
     [languages.fr.params.homeInfoParams]
-      Title = "hunting threats so you don't have to"
+      Title = "chasser les menaces pour que d'autres n'aient pas à le faire"
       Content = "CTI, ingénierie de détection et recherche appliquée. J'écris ce que j'apprends, y compris quand ça rate."
     [[languages.fr.menu.main]]
       name = "Articles"
